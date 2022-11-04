@@ -65,7 +65,7 @@ const loginUser = asyncHandler(async(req, res) => {
     }
 })
 
-// Get user data POST /api/users/me
+// Get user data GET /api/users/me
 const getMe = asyncHandler(async(req, res) => {
     const { _id, name, email, interests } = await User.findById(req.user._id)
 
@@ -75,6 +75,12 @@ const getMe = asyncHandler(async(req, res) => {
         email,
         interests
     })
+})
+
+// Get users GET /api/users/
+const getUsers = asyncHandler(async(req, res) => {
+    const users = await User.find({})
+    res.status(200).json(users)
 })
 
 // Generate JWT token
@@ -87,5 +93,6 @@ const generateToken = (id) => {
 module.exports = {
     registerUser,
     loginUser,
-    getMe
+    getMe,
+    getUsers,
 }

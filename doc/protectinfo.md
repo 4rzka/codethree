@@ -6,17 +6,18 @@ Check the .env file you prob need to change the address to your own mongodb if i
 
 ### Users:
 
-Register new user POST /api/users
-Authenticate a user POST /api/users/login
-Get user data POST /api/users/me
+1. Register new user POST /api/users
+2. Authenticate a user POST /api/users/login
+3. Get user data GET /api/users/me
+4. Get users GET /api/users/
 
 
 ### Posts:
 
-Get posts GET /api/posts
-Make a post POST /api/posts
-Update post PUT /api/posts/:id
-Delete post DELETE /api/posts/:id
+1. Get posts GET /api/posts
+2. Make a post POST /api/posts
+3. Update post PUT /api/posts/:id
+4. Delete post DELETE /api/posts/:id
 
 
 ## TODO:

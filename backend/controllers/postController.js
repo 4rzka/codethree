@@ -12,12 +12,17 @@ const getPosts = asyncHandler(async (req, res) => {
 
 // Make a post POST /api/posts
 const setPost = asyncHandler(async (req, res) => {
-    if(!req.body.text) {
+    if(!req.body.content) {
         res.status(400).json({ message: 'Please include a text' })
     }
 
+    if(!req.body.title) {
+        res.status(400).json({ message: 'Please include a title' })
+    }
+
     const post = await Post.create({
-        text: req.body.text,
+        title: req.body.title,
+        content: req.body.content,
         user: req.user._id
     })
 
