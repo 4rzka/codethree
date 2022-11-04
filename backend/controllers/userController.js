@@ -5,7 +5,7 @@ const User = require('../models/userModel')
 
 // Register new user POST /api/users
 const registerUser = asyncHandler(async(req, res) => {
-    const { name, email, password } = req.body
+    const { name, email, password, interests } = req.body
 
     if(!name || !email || !password) {
         res.status(400)
@@ -26,7 +26,8 @@ const registerUser = asyncHandler(async(req, res) => {
     const user = await User.create({
         name,
         email,
-        password: hashedPassword
+        password: hashedPassword,
+        interests
     })
     
     if(user) {
@@ -34,7 +35,8 @@ const registerUser = asyncHandler(async(req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
-            token: generateToken(user._id)
+            token: generateToken(user._id),
+            interests: user.interests
         })
     } else {
         res.status(400)
@@ -54,7 +56,8 @@ const loginUser = asyncHandler(async(req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
-            token: generateToken(user._id)
+            token: generateToken(user._id),
+            interests: user.interests
         })
     } else {
         res.status(401)
@@ -64,7 +67,14 @@ const loginUser = asyncHandler(async(req, res) => {
 
 // Get user data POST /api/users/me
 const getMe = asyncHandler(async(req, res) => {
-    const { _id, name, email } = await User.findById(req.user._id)
+    const { _id, name, email, interests } = await User.findById(req.user._id)
+
+    res.status(200).json({
+        _id,
+        name,
+        email,
+        interests
+    })
 })
 
 // Generate JWT token
